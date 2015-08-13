@@ -11,7 +11,8 @@ def get_os_peripherals():
 
     elif _platform == "darwin":
         print('osx is not support atm!')
-        return None, None, None
+        from pyunicon.Cocoa.CocoaMouse import CocoaMouse
+        return CocoaMouse(), None, None
 
     elif _platform == "win32":
         print('windows is not supported atm!')

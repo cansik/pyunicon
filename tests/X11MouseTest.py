@@ -1,7 +1,13 @@
+from time import sleep
 from pyunicon.UCMouse import UCMouse
 
 __author__ = 'cansik'
 
 mouse = UCMouse()
-print(mouse.get_mouse_position())
-mouse.move_mouse(200, 200)
+x, y = mouse.get_position()
+mouse.move(200, 200)
+sleep(1)
+mouse.move(x, y)
+mouse.click_left()
+
+print('X, Y: %s, %s' % (x, y))

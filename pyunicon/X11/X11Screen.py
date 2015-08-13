@@ -7,6 +7,6 @@ class X11Screen(object):
     def __init__(self):
         self.__xlib = X11Util()
 
-    def get_screen_size(self):
+    def get_size(self):
         xwa = self.__xlib.get_xwindow_attributes()
         return xwa.width, xwa.height
