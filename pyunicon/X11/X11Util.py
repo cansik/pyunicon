@@ -10,7 +10,7 @@ t_Colormap = c_ulong
 
 class X11Util(object):
     def __init__(self):
-        self.__xlib = cdll.LoadLibrary('libX11.so')
+        self.__xlib = cdll.LoadLibrary('libX11.so.6')
         self.__display = self.open_display()
         self.__window = self.__xlib.XDefaultRootWindow(self.__display)
 

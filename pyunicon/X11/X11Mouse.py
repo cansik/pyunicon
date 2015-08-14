@@ -1,4 +1,4 @@
-from X11.X11Util import X11Util
+from pyunicon.X11.X11Util import X11Util
 
 __author__ = 'cansik'
 
