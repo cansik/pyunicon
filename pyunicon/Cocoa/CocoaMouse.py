@@ -28,7 +28,6 @@ class CocoaMouse(object):
         CGWarpMouseCursorPosition((x, y))
         # todo: fix race condition (get position is not accurate)
 
-
     def get_position(self):
         mouse_event = CGEventCreate(None)
         pos = CGEventGetLocation(mouse_event)
