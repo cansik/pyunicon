@@ -9,7 +9,7 @@ from Quartz.CoreGraphics import kCGMouseButtonLeft
 from Quartz.CoreGraphics import kCGHIDEventTap
 from Quartz.CoreGraphics import CGEventCreate
 from Quartz.CoreGraphics import CGEventGetLocation
-from CoreFoundation import CFRelease
+from Quartz.CoreGraphics import CGWarpMouseCursorPosition
 from pyunicon.util.UCMouseKey import UCMouseKey
 
 __author__ = 'cansik'
@@ -22,15 +22,16 @@ class CocoaMouse(object):
     def __mouse_event(self, type, x, y):
         mouse_event = CGEventCreateMouseEvent(None, type, (x, y), kCGMouseButtonLeft)
         CGEventPost(kCGHIDEventTap, mouse_event)
-        # CFRelease(mouse_event)
 
     def move(self, x, y):
         self.__mouse_event(kCGEventMouseMoved, x, y)
+        CGWarpMouseCursorPosition((x, y))
+        # todo: fix race condition (get position is not accurate)
+
 
     def get_position(self):
         mouse_event = CGEventCreate(None)
         pos = CGEventGetLocation(mouse_event)
-        # CFRelease(mouse_event)
         return pos.x, pos.y
 
     def click(self, mouse_key):
