@@ -1,3 +1,6 @@
+from Quartz import CGDisplayBounds
+from Quartz import CGMainDisplayID
+
 __author__ = 'cansik'
 
 
@@ -6,5 +9,5 @@ class CocoaScreen(object):
         pass
 
     def get_size(self):
-        # todo: implement
-        pass
+        main_monitor = CGDisplayBounds(CGMainDisplayID())
+        return main_monitor.size.width, main_monitor.size.height

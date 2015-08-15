@@ -1,7 +1,12 @@
 from time import sleep
 from pyunicon.UCMouse import UCMouse
+from pyunicon.UCScreen import UCScreen
 
 __author__ = 'cansik'
+
+
+screen = UCScreen()
+print(screen.get_size())
 
 mouse = UCMouse()
 mouse.move(200, 200)
