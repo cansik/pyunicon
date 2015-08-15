@@ -14,8 +14,15 @@ class X11Util(object):
         self.__display = self.open_display()
         self.__window = self.__xlib.XDefaultRootWindow(self.__display)
 
+    def xsend_event(self, key_code, is_down):
+        # based on the idea of http://stackoverflow.com/a/30281261/1138326
+        key = XEvent(type=2).xkey
+        key.keycode = self.__xlib.XKeysymToKeycode(self.__display, key_code)
+        key.window = key.root = self.__xlib.XDefaultRootWindow(self.__display)
+        self.__xlib.XSendEvent(self.__display, key.window, is_down, 1, byref(key))
+
     def get_xwindow_attributes(self):
-        xwa = self.XWindowAttributes()
+        xwa = XWindowAttributes()
         self.__xlib.XGetWindowAttributes(self.__display, self.__window, byref(xwa))
         return xwa
 
@@ -37,29 +44,55 @@ class X11Util(object):
     def close_display(self):
         self.__xlib.XCloseDisplay(self.__display)
 
-    class XWindowAttributes(Structure):
-        _fields_ = [
+class XWindowAttributes(Structure):
+    _fields_ = [
+        ('x', c_int),
+        ('y', c_int),
+        ('width', c_int),
+        ('height', c_int),
+        ('border_width', c_int),
+        ('depth', c_int),
+        ('visual', c_void_p),
+        ('root', t_Window),
+        ('class', c_int),
+        ('bit_gravity', c_int),
+        ('win_gravity', c_int),
+        ('backing_store', c_int),
+        ('backing_planes', c_ulong),
+        ('backing_pixel', c_ulong),
+        ('save_under', t_Bool),
+        ('colormap', t_Colormap),
+        ('map_installed', t_Bool),
+        ('map_state', c_int),
+        ('all_event_masks', c_long),
+        ('your_event_masks', c_long),
+        ('do_not_propagate_mask', c_long),
+        ('override_redirect', t_Bool),
+        ('screen', c_void_p),
+    ]
+
+class XKeyEvent(Structure):
+    _fields_ = [
+            ('type', c_int),
+            ('serial', c_ulong),
+            ('send_event', c_int),
+            ('display', c_void_p),
+            ('window', c_ulong),
+            ('root', c_ulong),
+            ('subwindow', c_ulong),
+            ('time', c_ulong),
             ('x', c_int),
             ('y', c_int),
-            ('width', c_int),
-            ('height', c_int),
-            ('border_width', c_int),
-            ('depth', c_int),
-            ('visual', c_void_p),
-            ('root', t_Window),
-            ('class', c_int),
-            ('bit_gravity', c_int),
-            ('win_gravity', c_int),
-            ('backing_store', c_int),
-            ('backing_planes', c_ulong),
-            ('backing_pixel', c_ulong),
-            ('save_under', t_Bool),
-            ('colormap', t_Colormap),
-            ('map_installed', t_Bool),
-            ('map_state', c_int),
-            ('all_event_masks', c_long),
-            ('your_event_masks', c_long),
-            ('do_not_propagate_mask', c_long),
-            ('override_redirect', t_Bool),
-            ('screen', c_void_p),
+            ('x_root', c_int),
+            ('y_root', c_int),
+            ('state', c_uint),
+            ('keycode', c_uint),
+            ('same_screen', c_int),
+        ]
+
+class XEvent(Union):
+    _fields_ = [
+            ('type', c_int),
+            ('xkey', XKeyEvent),
+            ('pad', c_long*24),
         ]

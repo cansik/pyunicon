@@ -1,7 +1,4 @@
 from sys import platform as _platform
-from pyunicon.Cocoa.CocoaKeyboard import CocoaKeyboard
-from pyunicon.Cocoa.CocoaScreen import CocoaScreen
-from pyunicon.X11.X11Keyboard import X11Keyboard
 
 __author__ = 'cansik'
 
@@ -10,11 +7,16 @@ def get_os_peripherals():
     if _platform == "linux" or _platform == "linux2":
         from pyunicon.X11.X11Mouse import X11Mouse
         from pyunicon.X11.X11Screen import X11Screen
+        from pyunicon.X11.X11Keyboard import X11Keyboard
+
         return X11Mouse(), X11Keyboard(), X11Screen()
 
     elif _platform == "darwin":
         print('osx is not support atm!')
         from pyunicon.Cocoa.CocoaMouse import CocoaMouse
+        from pyunicon.Cocoa.CocoaKeyboard import CocoaKeyboard
+        from pyunicon.Cocoa.CocoaScreen import CocoaScreen
+
         return CocoaMouse(), CocoaKeyboard(), CocoaScreen()
 
     elif _platform == "win32":

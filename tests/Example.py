@@ -10,6 +10,10 @@ print(screen.get_size())
 
 sleep(1)
 
+keyboard = UCKeyboard()
+keyboard.send_key(0xffcc)
+keyboard.send_key(0x95)
+
 mouse = UCMouse()
 mouse.move(200, 200)
 print('X, Y: %s, %s' % mouse.get_position())
@@ -21,6 +25,3 @@ mouse.move(200, 200)
 print('X, Y: %s, %s' % mouse.get_position())
 print('clicking...')
 mouse.click_left()
-
-keyboard = UCKeyboard()
-keyboard.send_key(0x00)
