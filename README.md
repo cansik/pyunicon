@@ -22,6 +22,8 @@ print('X, Y: %s, %s' % (x, y))
  * click right
  * get position
 * Keyboard
+ * key down
+ * key up
  * send key 
 * Screen
  * get size
