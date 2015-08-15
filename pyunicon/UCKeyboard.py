@@ -3,7 +3,7 @@ from util.UCFactory import UCFactory
 __author__ = 'cansik'
 
 
-class UCScreen(object):
+class UCKeyboard(object):
     def __init__(self):
         self.__keyboard = UCFactory.get_keyboard()
 
