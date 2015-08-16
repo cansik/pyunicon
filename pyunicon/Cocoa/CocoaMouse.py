@@ -33,14 +33,22 @@ class CocoaMouse(object):
         pos = CGEventGetLocation(mouse_event)
         return pos.x, pos.y
 
-    def click(self, mouse_key):
+    def press(self, mouse_key):
         x, y = self.get_position()
 
         if mouse_key is UCMouseKey.UC_MOUSE_LEFT:
             self.__mouse_event(kCGEventLeftMouseDown, x, y)
-            self.__mouse_event(kCGEventLeftMouseUp, x, y)
         elif mouse_key is UCMouseKey.UC_MOUSE_MIDDLE:
             print("mouse middle not supported on OSX!")
         elif mouse_key is UCMouseKey.UC_MOUSE_RIGHT:
             self.__mouse_event(kCGEventRightMouseDown, x, y)
+
+    def release(self, mouse_key):
+        x, y = self.get_position()
+
+        if mouse_key is UCMouseKey.UC_MOUSE_LEFT:
+            self.__mouse_event(kCGEventLeftMouseUp, x, y)
+        elif mouse_key is UCMouseKey.UC_MOUSE_MIDDLE:
+            print("mouse middle not supported on OSX!")
+        elif mouse_key is UCMouseKey.UC_MOUSE_RIGHT:
             self.__mouse_event(kCGEventRightMouseUp, x, y)

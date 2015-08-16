@@ -18,11 +18,18 @@ class UCMouse(object):
     def get_position(self):
         return self.__mouse.get_position()
 
+    def press(self, mouse_key):
+        self.__mouse.press(mouse_key)
+
+    def release(self, mouse_key):
+        self.__mouse.release(mouse_key)
+
     def click(self, mouse_key):
-        self.__mouse.click(mouse_key)
+        self.__mouse.press(mouse_key)
+        self.__mouse.release(mouse_key)
 
     def click_left(self):
-        self.__mouse.click(UCMouseKey.UC_MOUSE_LEFT)
+        self.click(UCMouseKey.UC_MOUSE_LEFT)
 
     def click_right(self):
-        self.__mouse.click(UCMouseKey.UC_MOUSE_RIGHT)
+        self.click(UCMouseKey.UC_MOUSE_RIGHT)

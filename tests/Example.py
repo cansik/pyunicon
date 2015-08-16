@@ -25,4 +25,5 @@ print('X, Y: %s, %s' % mouse.get_position())
 mouse.move(200, 200)
 print('X, Y: %s, %s' % mouse.get_position())
 print('clicking...')
-mouse.click_left()
+
+mouse.click_right()
