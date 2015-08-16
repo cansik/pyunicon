@@ -16,5 +16,6 @@ class X11Keyboard(object):
         pass
 
     def send_key(self, key_code):
-        self.__xlib.xsend_event(key_code, True)
+        # self.__xlib.xsend_event(key_code, True)
+        self.__xlib.send_key("x")
         pass

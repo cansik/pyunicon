@@ -1,4 +1,10 @@
 from ctypes import *
+import time
+
+from Xlib.display import Display
+import Xlib
+from Xlib import X
+import Xlib.XK
 
 # custom types
 t_Atom = c_ulong
@@ -19,7 +25,39 @@ class X11Util(object):
         key = XEvent(type=2).xkey
         key.keycode = self.__xlib.XKeysymToKeycode(self.__display, key_code)
         key.window = key.root = self.__xlib.XDefaultRootWindow(self.__display)
-        self.__xlib.XSendEvent(self.__display, key.window, is_down, 1, byref(key))
+        self.__xlib.XSendEvent(self.__display, key.window, True, 1, byref(key))
+
+    def send_key(self, emulated_key):
+        display = Display()
+        root = display.screen().root
+
+        shift_mask = 0  # or Xlib.X.ShiftMask
+        window = display.get_input_focus()._data["focus"]
+        keysym = Xlib.XK.string_to_keysym(emulated_key)
+        keycode = display.keysym_to_keycode(keysym)
+
+        Xlib.ext.xtest.fake_input(window, Xlib.X.KeyPress, keycode)
+
+        event = Xlib.protocol.event.KeyPress(
+            time=int(time.time()),
+            root=root,
+            window=window,
+            same_screen=0, child=Xlib.X.NONE,
+            root_x=0, root_y=0, event_x=0, event_y=0,
+            state=shift_mask,
+            detail=keycode
+        )
+        window.send_event(event, propagate=True)
+        event = Xlib.protocol.event.KeyRelease(
+            time=int(time.time()),
+            root=display.screen().root,
+            window=window,
+            same_screen=0, child=Xlib.X.NONE,
+            root_x=0, root_y=0, event_x=0, event_y=0,
+            state=shift_mask,
+            detail=keycode
+        )
+        window.send_event(event, propagate=True)
 
     def get_xwindow_attributes(self):
         xwa = XWindowAttributes()
@@ -34,8 +72,8 @@ class X11Util(object):
         (root_x, root_y, win_x, win_y) = (c_int(), c_int(), c_int(), c_int())
         mask = c_uint()
         self.__xlib.XQueryPointer(self.__display, c_uint32(self.__window), byref(root_id), byref(child_id),
-                            byref(root_x), byref(root_y),
-                            byref(win_x), byref(win_y), byref(mask))
+                                  byref(root_x), byref(root_y),
+                                  byref(win_x), byref(win_y), byref(mask))
         return root_x, root_y, win_x, win_y
 
     def open_display(self):
@@ -43,6 +81,7 @@ class X11Util(object):
 
     def close_display(self):
         self.__xlib.XCloseDisplay(self.__display)
+
 
 class XWindowAttributes(Structure):
     _fields_ = [
@@ -71,28 +110,30 @@ class XWindowAttributes(Structure):
         ('screen', c_void_p),
     ]
 
+
 class XKeyEvent(Structure):
     _fields_ = [
-            ('type', c_int),
-            ('serial', c_ulong),
-            ('send_event', c_int),
-            ('display', c_void_p),
-            ('window', c_ulong),
-            ('root', c_ulong),
-            ('subwindow', c_ulong),
-            ('time', c_ulong),
-            ('x', c_int),
-            ('y', c_int),
-            ('x_root', c_int),
-            ('y_root', c_int),
-            ('state', c_uint),
-            ('keycode', c_uint),
-            ('same_screen', c_int),
-        ]
+        ('type', c_int),
+        ('serial', c_ulong),
+        ('send_event', c_int),
+        ('display', c_void_p),
+        ('window', c_ulong),
+        ('root', c_ulong),
+        ('subwindow', c_ulong),
+        ('time', c_ulong),
+        ('x', c_int),
+        ('y', c_int),
+        ('x_root', c_int),
+        ('y_root', c_int),
+        ('state', c_uint),
+        ('keycode', c_uint),
+        ('same_screen', c_int),
+    ]
+
 
 class XEvent(Union):
     _fields_ = [
-            ('type', c_int),
-            ('xkey', XKeyEvent),
-            ('pad', c_long*24),
-        ]
+        ('type', c_int),
+        ('xkey', XKeyEvent),
+        ('pad', c_long * 24),
+    ]

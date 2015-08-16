@@ -11,6 +11,7 @@ print(screen.get_size())
 sleep(1)
 
 keyboard = UCKeyboard()
+print("send key")
 keyboard.send_key(0xffcc)
 keyboard.send_key(0x95)
 
