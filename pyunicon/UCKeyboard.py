@@ -14,4 +14,5 @@ class UCKeyboard(object):
         self.__keyboard.key_up(key_code)
 
     def send_key(self, key_code):
-        self.__keyboard.send_key(key_code)
+        self.key_down(key_code)
+        self.key_up(key_code)

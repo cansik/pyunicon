@@ -17,7 +17,3 @@ class CocoaKeyboard(object):
 
     def key_up(self, key_code):
         self.__sim_key(key_code, False)
-
-    def send_key(self, key_code):
-        self.key_down(key_code)
-        self.key_up(key_code)
