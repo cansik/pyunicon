@@ -1,5 +1,5 @@
 from pyunicon.X11.X11Util import X11Util
-from pyunicon.util.UCMouseKey import UCMouseKey
+from pyunicon.util import UCMouseKey
 
 from Xlib import X
 from Xlib.display import Display
