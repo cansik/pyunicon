@@ -21,7 +21,7 @@ class UCMouse(object):
 
     def move_relative(self, dx, dy):
         x, y = self.get_position()
-        self.move(x.value + dx, y.value + dy)
+        self.move(x + dx, y + dy)
 
     def get_position(self):
         return self.__mouse.get_position()

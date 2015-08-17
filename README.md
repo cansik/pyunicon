@@ -1,6 +1,14 @@
 # PyUnicon
 PyUnicon is a cross platform library to control keyboard and mouse. Works on MacOSX (Cocoa), Linux (X11) and Windows (Win32)
 
+#### Install
+
+The easiest way is to install by [PIP](https://pypi.python.org/pypi/pyunicon/0.1.0):
+
+```
+pip install pyunicon
+```
+
 #### Example
 
 ```
