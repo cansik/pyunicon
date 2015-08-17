@@ -2,7 +2,7 @@ __author__ = 'cansik'
 
 
 class UCKeyCode(object):
-    def __init__(self, cocoa_code, x11_code, win_code):
-        self.Cocoa = cocoa_code
-        self.X11 = x11_code
-        self.WinForm = win_code
+    def __init__(self, text, cocoa, x11, win32):
+        self.Cocoa = cocoa
+        self.X11 = text
+        self.WinForm = win32

@@ -1,6 +1,7 @@
 from pyunicon.X11.X11Util import X11Util
 
 from Xlib import X
+from Xlib import XK
 from Xlib.display import Display
 from Xlib.ext.xtest import fake_input
 
@@ -19,7 +20,8 @@ class X11Keyboard(object):
             pass
 
         d = Display()
-        fake_input(d, x_event, key)
+        x11key = d.keysym_to_keycode(XK.string_to_keysym(key))
+        fake_input(d, x_event, x11key)
         d.sync()
 
     def key_down(self, key_code):
