@@ -2,6 +2,7 @@ from time import sleep
 from pyunicon.UCKeyboard import UCKeyboard
 from pyunicon.UCMouse import UCMouse
 from pyunicon.UCScreen import UCScreen
+from pyunicon.util import UCKey
 
 __author__ = 'cansik'
 
@@ -29,4 +30,9 @@ sleep(1)
 keyboard = UCKeyboard()
 print("send key")
 
-keyboard.send_key(36)
+keyboard.send_key(UCKey.UC_H)
+keyboard.send_key(UCKey.UC_A)
+keyboard.send_key(UCKey.UC_L)
+keyboard.send_key(UCKey.UC_L)
+keyboard.send_key(UCKey.UC_O)
+keyboard.send_key(UCKey.UC_RETURN)

@@ -10,7 +10,7 @@ from Quartz.CoreGraphics import kCGHIDEventTap
 from Quartz.CoreGraphics import CGEventCreate
 from Quartz.CoreGraphics import CGEventGetLocation
 from Quartz.CoreGraphics import CGWarpMouseCursorPosition
-from pyunicon.util.UCMouseKey import UCMouseKey
+from pyunicon.util import UCMouseKey
 
 __author__ = 'cansik'
 

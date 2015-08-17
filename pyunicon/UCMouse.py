@@ -1,4 +1,4 @@
-from pyunicon.util.UCMouseKey import UCMouseKey
+from pyunicon.util import UCMouseKey
 from util.UCFactory import UCFactory
 
 __author__ = 'cansik'

@@ -58,6 +58,7 @@ class X11Util(object):
             detail=keycode
         )
         window.send_event(event, propagate=True)
+        display.sync()
 
     def get_xwindow_attributes(self):
         xwa = XWindowAttributes()

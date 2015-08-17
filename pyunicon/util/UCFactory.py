@@ -12,7 +12,6 @@ def get_os_peripherals():
         return X11Mouse(), X11Keyboard(), X11Screen()
 
     elif _platform == "darwin":
-        print('osx is not support atm!')
         from pyunicon.Cocoa.CocoaMouse import CocoaMouse
         from pyunicon.Cocoa.CocoaKeyboard import CocoaKeyboard
         from pyunicon.Cocoa.CocoaScreen import CocoaScreen
