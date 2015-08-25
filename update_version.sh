@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-sudo pip uninstall pg4nosql -y
+sudo pip uninstall pyunicon -y
 sudo python setup.py install
